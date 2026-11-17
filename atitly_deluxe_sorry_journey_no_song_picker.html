@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Titly — A Little Sorry</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&family=Caveat:wght@500;600&display=swap');
+:root{--ink:#493443;--muted:#8b7180;--rose:#d87991;--deep:#a95070;--cream:#fff9f7;--line:#f0dce3}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:'DM Sans',sans-serif;background:radial-gradient(circle at 12% 12%,#ffe0e9 0,transparent 32%),radial-gradient(circle at 90% 85%,#f6dce7 0,transparent 30%),linear-gradient(135deg,#fffaf7,#fff0f4);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:radial-gradient(#d87991 1px,transparent 1px);background-size:25px 25px}
+main{width:min(760px,92%);margin:0 auto;padding:30px 0 55px;position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.screen{display:none;animation:enter .55s ease both}.screen.active{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.panel{background:rgba(255,255,255,.86);border:1px solid rgba(240,220,226,.95);border-radius:28px;padding:clamp(23px,5vw,48px);box-shadow:0 20px 65px #9d63751c;backdrop-filter:blur(10px);text-align:center}
+.eyebrow{letter-spacing:3.5px;text-transform:uppercase;font-size:10px;color:#b66b82;font-weight:700}
+h1,h2,h3{font-family:'Playfair Display',serif;color:#633f52}
+h1{font-size:clamp(43px,9vw,76px);line-height:1.04;margin:15px 0}
+h2{font-size:clamp(29px,6vw,43px);margin:12px 0}
+h3{font-size:25px;margin:8px 0}
+p{color:var(--muted);line-height:1.8}
+.hero-icon{font-size:44px;margin:12px 0;display:inline-block;animation:pulse 1.7s infinite}
+@keyframes pulse{50%{transform:scale(1.13)}}
+.sub{max-width:490px;margin:0 auto 24px;font-size:14px}
+.btn{border:0;border-radius:999px;padding:14px 24px;font:700 13px 'DM Sans';letter-spacing:.5px;cursor:pointer;transition:.22s}
+.btn:hover{transform:translateY(-3px);filter:brightness(.98)}
+.primary{color:white;background:linear-gradient(135deg,#dc849c,#b85d7d);box-shadow:0 9px 24px #d8799140}
+.soft{color:#92576e;background:#fff0f4;border:1px solid #f5dce4}
+.tiny{font-size:11px;color:#a98c99;margin-top:20px}
+.filebox{margin:20px auto 0;padding:16px;background:#fff7f8;border:1px dashed #e9b9c8;border-radius:18px;max-width:420px}
+.filebox label{display:inline-block;background:#f9e5eb;padding:11px 17px;border-radius:30px;color:#8c5269;font-size:12px;font-weight:700;cursor:pointer}
+input[type=file]{display:none}
+#songName{font-size:11px;color:#9b7a89;margin-top:9px}
+audio{width:100%;max-width:430px;margin-top:14px;height:38px}
+.progress{height:5px;background:#f6e5ea;border-radius:20px;overflow:hidden;margin:0 auto 25px;max-width:450px}
+#bar{height:100%;width:0;background:linear-gradient(90deg,#d87991,#f0aebf);transition:width .35s}
+.qnum{font-size:11px;letter-spacing:2px;color:#b66b82;font-weight:700;text-transform:uppercase}
+.question{font:600 clamp(27px,5vw,39px) 'Playfair Display';color:#633f52;line-height:1.25;margin:15px auto 10px;max-width:550px}
+.hint{font-size:13px;margin:0 auto 24px}
+.options{display:grid;gap:11px;max-width:470px;margin:25px auto 0}
+.option{padding:15px 18px;border:1px solid #f0dce3;background:#fffafb;border-radius:16px;color:#765365;font:600 14px 'DM Sans';cursor:pointer;transition:.2s}
+.option:hover{background:#fff0f4;border-color:#e6aabd;transform:translateY(-2px)}
+.option.selected{background:#f9e5eb;border-color:#d87991;color:#8b4964;box-shadow:0 0 0 3px #d8799118}
+.nav{display:flex;justify-content:center;gap:10px;margin-top:25px;flex-wrap:wrap}
+.feedback{font:500 23px 'Caveat',cursive;color:#b45f7a;margin-top:23px;min-height:28px}
+.letter{font:18px/1.95 'Playfair Display',serif;text-align:left;white-space:pre-line;color:#674e5c;background:#fffaf8;border:1px solid #f4e4e8;border-radius:18px;padding:23px;margin:24px 0}
+.letter strong{color:#b45f7a}
+.envelope{width:160px;height:112px;margin:26px auto 12px;position:relative;background:#eaa8ba;border-radius:8px;cursor:pointer;box-shadow:0 12px 25px #b45f7a26;transition:.5s}
+.envelope:before{content:"";position:absolute;inset:0;background:#f5c4d0;clip-path:polygon(0 0,50% 58%,100% 0);z-index:2;transform-origin:top;transition:.7s}
+.envelope:after{content:"";position:absolute;inset:0;background:#df91a8;clip-path:polygon(0 100%,50% 45%,100% 100%);z-index:1}
+.envelope.open:before{transform:rotateX(180deg)}
+.seal{position:absolute;z-index:3;left:50%;top:48%;transform:translate(-50%,-50%);font-size:27px}
+#letterContent{display:none;animation:enter .7s ease}
+#letterContent.show{display:block}
+.foot{font-size:11px;color:#ae8b9a;text-align:center;margin-top:20px}
+.spark{position:fixed;pointer-events:none;z-index:5;animation:floatUp 4s linear forwards}
+@keyframes floatUp{to{transform:translateY(-110vh) rotate(45deg);opacity:0}}
+@media(max-width:520px){main{padding:18px 0 35px}.panel{border-radius:22px}.letter{font-size:16px;padding:17px}}
+</style>
+</head>
+<body>
+<main>
+  <!-- EDIT THE LETTER AND QUESTIONS IN THE JAVASCRIPT AT THE BOTTOM -->
+  <section class="screen active" id="welcome">
+    <div class="panel">
+      <div class="eyebrow">A little something, just for you</div>
+      <div class="hero-icon">♡</div>
+      <h1>Hey, Titly!</h1>
+      <p class="sub">I made something for you. It isn't just a message — it's a little journey, and I hope you'll hear me out until the end.</p>
+      <!-- Keep your MP3 in the same folder as this HTML file and name it song.mp3 -->
+      <audio id="player" src="song.mp3" preload="auto"></audio>
+      <div style="margin-top:25px"><button class="btn primary" id="begin">LET'S BEGIN ♡</button></div>
+      <div class="tiny">Best experienced with your sound on.</div>
+    </div>
+  </section>
+
+  <section class="screen" id="intro">
+    <div class="panel">
+      <div class="hero-icon">💗</div>
+      <div class="eyebrow">Before we begin</div>
+      <h2>Just a few little questions…</h2>
+      <p class="sub">There are no right or wrong answers. Just choose what feels true to you. And thank you for giving me a moment of your time.</p>
+      <button class="btn primary" id="startSurvey">I'm ready ♡</button>
+    </div>
+  </section>
+
+  <section class="screen" id="survey">
+    <div class="panel">
+      <div class="progress"><div id="bar"></div></div>
+      <div class="qnum" id="qnum">QUESTION 1 OF 5</div>
+      <div class="question" id="question"></div>
+      <p class="hint" id="hint"></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="nav"><button class="btn primary" id="next" disabled>Continue →</button></div>
+    </div>
+  </section>
+
+  <section class="screen" id="interlude">
+    <div class="panel">
+      <div class="hero-icon">🌷</div>
+      <div class="eyebrow">One thing between us</div>
+      <h2>Thank you for staying.</h2>
+      <p class="sub">I know a website can't undo a mistake. I just wanted to make the effort to say this thoughtfully, instead of sending another rushed message.</p>
+      <button class="btn primary" id="toLetter">Read my letter ♡</button>
+    </div>
+  </section>
+
+  <section class="screen" id="final">
+    <div class="panel">
+      <div class="eyebrow">The last page</div>
+      <h2>A letter, just for you</h2>
+      <p class="sub">There's something I wanted to say in my own words.</p>
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open the letter"><div class="seal">♡</div></div>
+      <div style="font-size:12px;color:#a47c8d">Tap the envelope to open it</div>
+      <div id="letterContent">
+        <div class="letter" id="letterText"></div>
+        <div class="hero-icon" style="font-size:30px">♡</div>
+        <p style="font:500 24px 'Caveat',cursive;color:#b45f7a">With a sincere apology.</p>
+      </div>
+    </div>
+  </section>
+  <div class="foot">Made with sincerity ♡</div>
+</main>
+<script>
+/* PERSONALIZE HERE: edit the questions, options, and final letter as you like. */
+const questions = [
+  {q:"Can I have a little moment of your time?",hint:"No pressure at all.",options:["Of course ♡","Okay, go on","I'm listening"]},
+  {q:"Do you think little efforts can make a difference?",hint:"I hope this little effort counts for something.",options:["Yes, they can","Sometimes","It depends"]},
+  {q:"What matters most after a misunderstanding?",hint:"Choose the one that feels most important to you.",options:["Being heard","Honesty","Changed actions","A little time and space"]},
+  {q:"Would you rather someone listen or try to explain first?",hint:"I want to understand your side, too.",options:["Listen first","Explain calmly","Both, equally"]},
+  {q:"Can we leave a little room for a better conversation someday?",hint:"Only if and when you're comfortable.",options:["Yes, someday ♡","Maybe, with time","I need some space"]}
+];
+const finalLetter = `Dear Titly,
+
+I wanted to make something a little different because a simple “sorry” didn't feel like enough.
+
+I'm genuinely sorry for the things I said or did that hurt you. I should have been more thoughtful, listened more carefully, and understood your feelings instead of assuming I knew everything.
+
+I'm not writing this to pressure you to forgive me, or to make you feel that you have to respond. Your feelings are valid, and you deserve the time and space you need.
+
+I can't change what has already happened, but I can take responsibility for it and try to do better from now on. I want my actions to show that these words are sincere.
+
+Thank you for reading this far, Titly.
+
+I'm truly sorry. ♡
+
+— From me`;
+let index=0,chosen=null;
+const $=id=>document.getElementById(id);
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+const player=$('player');
+$('begin').addEventListener('click',()=>{show('intro');player.play().catch(()=>{console.warn('Could not start song.mp3. Check that it is in the same folder as this HTML file.');});});
+$('startSurvey').addEventListener('click',()=>{index=0;renderQuestion();show('survey');});
+function renderQuestion(){const q=questions[index];chosen=null;$('qnum').textContent=`QUESTION ${index+1} OF ${questions.length}`;$('bar').style.width=((index)/questions.length*100)+'%';$('question').textContent=q.q;$('hint').textContent=q.hint;$('feedback').textContent='';$('next').disabled=true;$('next').textContent=index===questions.length-1?'Finish ♡':'Continue →';$('options').innerHTML='';q.options.forEach((opt,i)=>{const b=document.createElement('button');b.className='option';b.textContent=opt;b.addEventListener('click',()=>{document.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');chosen=i;$('next').disabled=false;$('feedback').textContent=['Thank you for being honest ♡','I appreciate you answering 🌷','I hear you. Thank you 💗'][i%3];});$('options').appendChild(b);});}
+$('next').addEventListener('click',()=>{if(chosen===null)return;index++;if(index<questions.length)renderQuestion();else{$('bar').style.width='100%';show('interlude');}});
+$('toLetter').addEventListener('click',()=>{show('final');$('letterText').textContent=finalLetter;});
+function openLetter(){ $('envelope').classList.add('open');$('letterContent').classList.add('show');for(let i=0;i<22;i++)setTimeout(floatHeart,i*75);}
+$('envelope').addEventListener('click',openLetter);$('envelope').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLetter();}});
+function floatHeart(){const el=document.createElement('span');el.className='spark';el.textContent=['♡','♥','✦','💗','🌸'][Math.floor(Math.random()*5)];el.style.left=Math.random()*100+'vw';el.style.bottom='-30px';el.style.fontSize=(15+Math.random()*22)+'px';document.body.appendChild(el);setTimeout(()=>el.remove(),4100);}
+</script>
+</body>
+</html>
